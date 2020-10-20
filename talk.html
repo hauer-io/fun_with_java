@@ -1,0 +1,268 @@
+<!doctype html>
+<html lang="de">
+<head>
+    <meta charset="utf-8"/>
+    <title>Funktionales Programmieren | Jan Hauer</title>
+    <meta name="description" content="Funktional Centrered Design"/>
+    <meta name="author" content="Jan Hauer"/>
+    <link rel="stylesheet" href="styles/css/exxeta.css"/>
+    <link rel="stylesheet" href="styles/css/github.css">
+</head>
+<body>
+<div id="impress">
+
+    <!-- Folien -->
+    <div id="title" class="step slide title" data-x="0" data-y="0">
+        <h1>Functional Centered Design</h1>
+        <h2>Jan Hauer</h2>
+        <h3>28. Oktober 2020</h3>
+    </div>
+
+    <div id="agenda" class="step slide" data-rel-x="2000" data-rel-y="0">
+        <h1>Agenda</h1>
+        <ol>
+            <li>Motivation</li>
+            <li>Paradigmen</li>
+            <li>Hexagonal-Architecture</li>
+            <li>Functional Pattern</li>
+        </ol>
+    </div>
+
+    <div id="referent" class="step slide" data-rel-x="2000" data-rel-y="0">
+        <h1>Ihr Referent</h1>
+        <div style="text-align: center;">
+            <img src="styles/img/profil.jpg" alt="Profilbild" class="profil"><br/>
+            <em> Jan Hauer </em><br/>
+            Manager<br/>
+            Java Enterprise Solutions<br/>
+            Jan.Hauer@EXXETA.com<br/>
+            <img src="styles/img/twitter.png" alt="Twitter-Icon" scale="0.001"> @hauer-io
+        </div>
+    </div>
+
+
+    <div class="step slide" data-rel-x="2000" data-rel-y="0">
+        <h1>Microservices</h1>
+        <div style="text-align: center;"><img src="img/ants.jpg" alt="Microservices"><br/></div>
+    </div>
+
+
+    <!-- Paradigma -->
+    <div id="demo-paradigma" class="code step slide" data-rel-x="2000" data-rel-y="0">
+        <h1>Paradigma</h1>
+        <h3>https://github.com/hauer-io/jfun</h3>
+    </div>
+
+    <div id="eat-overview" class="step slide" data-rel-x="2000" data-rel-y="0">
+        <h1>Überblick</h1>
+        <pre><code class="java">// Prozedual
+        for(Duck duck: DUCKS){
+          eat(duck.stomach, Apple);
+          print(duck);
+        }
+// Objekt-Orientiert
+        for(Duck duck: DUCKS){
+          duck.eat(Apple);
+          print(duck);
+        }
+//Funktional
+        DUCKS.stream()
+                .map(duck -> new Duck(duck.name, new Stomach(duck.stomach.content.append(Apple))))
+                .forEach(DuckApp::print);
+      </code></pre>
+    </div>
+
+    <div id="vergleich" class="step slide" data-rel-x="2000" data-rel-y="0">
+        <h1>Vergleich</h1>
+        <table>
+            <tr>
+                <th class="blank"></th>
+                <th>Seiteneffekte</th>
+                <th>Daten & Funktionalität</th>
+            </tr>
+            <tr class="switch">
+                <td>Prozedual</td>
+                <td>Ja</td>
+                <td>Getrennt</td>
+            </tr>
+            <tr>
+                <td>Object-Orientiert</td>
+                <td>Ja</td>
+                <td>Gemeinsam</td>
+            </tr>
+            <tr class="switch">
+                <td>Funktional</td>
+                <td>Nein</td>
+                <td>Getrennt</td>
+            </tr>
+        </table>
+        <div class="notes">Platz + Kombination fehlt</div>
+    </div>
+
+
+    <div id="vergleich-2" class="step slide" data-rel-x="2000" data-rel-y="0">
+        <h1>Vergleich</h1>
+        <table>
+            <tr>
+                <th class="blank"></th>
+                <th>Seiteneffekte</th>
+                <th>Daten & Funktionalität</th>
+            </tr>
+            <tr class="switch">
+                <td>Prozedual</td>
+                <td>Ja</td>
+                <td>Getrennt</td>
+            </tr>
+            <tr>
+                <td>Object-Orientiert</td>
+                <td>Ja</td>
+                <td>Gemeinsam</td>
+            </tr>
+            <tr class="switch">
+                <td>Funktional</td>
+                <td>Nein</td>
+                <td>Getrennt</td>
+            </tr>
+            <tr>
+                <td>Fun-00</td>
+                <td>Nein</td>
+                <td>Gemeinsam</td>
+            </tr>
+        </table>
+    </div>
+
+    <div id="demo-fun-oo" class="code step slide" data-rel-x="2000" data-rel-y="0">
+        <h1>Fun-OO</h1>
+        <h3>https://github.com/hauer-io/jfun</h3>
+    </div>
+
+    <div id="def-fun" class="step slide" data-rel-x="2000" data-rel-y="0">
+        <h1>Funktionale Prinzipien</h1>
+        <ol>
+            <li>Sequenzen statt Schleifen</li>
+            <li>Keine Seiteneffekte</li>
+            <li>Kein Kontrollfluss durch Exceptions</li>
+        </ol>
+    </div>
+
+
+    <div id="lib" class="step slide" data-rel-x="2000" data-rel-y="0">
+        <h1>Maven Dependencies</h1>
+
+        <pre><code class="xml"> // Java
+            &lt;dependency&gt;
+                &lt;groupId&gt;com.oath.cyclops&lt;/groupId&gt;
+                &lt;artifactId&gt;cyclops&lt;/artifactId&gt;
+                &lt;version&gt;10.4.0&lt;/version&gt;
+            &lt;/dependency&gt;
+
+ // Kotlin
+            &lt;dependency&gt;
+                &lt;groupId&gt;io.arrow-kt&lt;/groupId&gt;
+                &lt;artifactId&gt;arrow-core&lt;/artifactId&gt;
+                &lt;version&gt;0.11.0&lt;/version&gt;
+            &lt;/dependency&gt;
+        </code></pre>
+    </div>
+
+    <div class="step slide" data-rel-x="2000" data-rel-y="0">
+        <div style="text-align: center;" scale="0.5"><img src="img/hexagonal-architecture.png" alt="Hexagonal architecture"><br/></div>
+    </div>
+
+    <div class="step slide" data-rel-x="2000" data-rel-y="0">
+        <h1>Monade</h1>
+
+        <pre><code class="java">@FunctionalInterface
+public interface Monade&lt;T&gt; {
+
+    &lt;T&gt; Monade&lt;T&gt; empty();
+
+    &lt;R&gt; Monade&lt;R&gt; map(Function&lt; ? super T, ? extends R&gt; fun);
+
+    &lt;R&gt; Monade&lt;R&gt; flatMap(Function&lt; ? super T, ? extends Monade&lt;R&gt;&gt; fun);
+
+}</code></pre>
+    </div>
+
+    <div class="step slide" data-rel-x="2000" data-rel-y="0">
+        <h1>Beispiel: Optional</h1>
+
+        <pre><code class="java">public class java.util.Optional&lt;T&gt; implements Monade&lt;T&gt; {
+
+    &lt;T&gt; Optional&lt;T&gt; empty() {
+        return Option.empty();
+    }
+
+    &lt;R&gt; Optional&lt;R&gt; map(Function&lt; ? super T, ? extends R&gt; fun) {
+        return this.isEmpty() ? empty() : ofNullable(fun.apply(this.value));
+    }
+
+    &lt;R&gt; Optional&lt;R&gt; flatMap(Function&lt; ? super T, ? extends Optional&lt;R&gt;&gt; fun){
+        return this.isEmpty() ? empty() : fun.apply(this.value);
+    }
+
+}</code></pre>
+    </div>
+
+    <div class="step slide" data-rel-x="2000" data-rel-y="0">
+        <h1>Beispiel: List</h1>
+
+        <pre><code class="java">public class java.util.List&lt;T&gt; implements Monade&lt;T&gt; {
+
+    &lt;T&gt; List&lt;T&gt; empty() {
+        return List.of();
+    }
+
+    &lt;R&gt; List&lt;R&gt; map(Function&lt; ? super T, ? extends R&gt; fun) {
+        return this.isEmpty() ? empty() : ofNullable(fun.apply(this.value));
+    }
+
+    &lt;R&gt; List&lt;R&gt; flatMap(Function&lt; ? super T, ? extends List&lt;R&gt;&gt; fun){
+        return this.isEmpty() ? empty() : fun.apply(this.value);
+    }
+
+}</code></pre>
+    </div>
+
+    <div class="step slide" data-rel-x="2000" data-rel-y="0">
+        <h1>Weitere Beispiele</h1>
+
+        <ul>
+            <li>java.util.stream.Stream</li>
+            <li>cyclops.control.Eval</li>
+            <li>cyclops.control.Maybe</li>
+            <li>cyclops.control.LazyEither</li>
+            <li>cyclops.control.Try</li>
+        </ul>
+    </div>
+
+    <!-- Paradigma -->
+    <div id="demo-design" class="code step slide" data-rel-x="2000" data-rel-y="0">
+        <h1>Design</h1>
+        <h3>https://github.com/hauer-io/jfun</h3>
+    </div>
+
+    <div id="zusammenfassung" class="step slide" data-rel-x="2000" data-rel-y="0">
+        <h1>Zusammenfassung</h1>
+        <ul>
+            <li>Einfache Testbarkeit (keine Integrationstest)</li>
+            <li>Klare API (Either/Try)</li>
+            <li>Performance schonend (Lazyness)</li>
+        </ul>
+    </div>
+
+    <div class="warn step slide" data-rel-x="2000" data-rel-y="0">
+        <h1>Workshop am Freitag</h1>
+    </div>
+
+    <div id="schluss" class="schluss step slide" data-rel-x="2000" data-rel-y="0">
+    </div>
+</div>
+<script src="styles/js/highlight.pack.js"></script>
+
+<script type="text/javascript" src="styles/js/impress.js"></script>
+<script>
+    impress().init();
+</script>
+<script>hljs.initHighlightingOnLoad();</script>
+</body>
