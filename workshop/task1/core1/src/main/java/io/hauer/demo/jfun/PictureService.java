@@ -1,22 +1,17 @@
 package io.hauer.demo.jfun;
 
+import cyclops.control.Either;
+import cyclops.control.Option;
 import lombok.AllArgsConstructor;
-
-import java.util.NoSuchElementException;
 
 @AllArgsConstructor
 public class PictureService {
     private final PicturePort port;
 
-    public byte[] getContent(final long id) {
-        var picture = port.getPicture(id);
-
-        if(picture == null) {
-            throw new NoSuchElementException();
-        }
-
-        return port
-                .getPicture(id)
-                .getContent();
+    public Either<String, byte[]> getContent(final long id) {
+        return Option
+                .ofNullable(port.getPicture(id))
+                .toEither("Kein Bild gefunden")
+                .flatMap(Picture::getContent);
     }
 }
